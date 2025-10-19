@@ -20,7 +20,7 @@ function Register() {
     try {
       await API.post("/auth/register", form);
       setMessage("Registered successfully! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 1500);
+      setTimeout(() => navigate("/dashboard"), 1500);
     } catch (err) {
       setMessage("Registration failed. Try again.");
     }
