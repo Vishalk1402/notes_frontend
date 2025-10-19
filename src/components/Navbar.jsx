@@ -27,18 +27,19 @@ function Navbar() {
 
   return (
     <nav className="bg-gray-900 text-white px-6 py-3 shadow-md sticky top-0 z-50">
+      {/* Top Navbar Section */}
       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link
           to={token ? "/dashboard" : "/"}
-          className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition"
+          className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition md:text-left text-center w-full md:w-auto"
         >
           StudyHub
         </Link>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden focus:outline-none"
+          className="md:hidden focus:outline-none absolute right-6"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X size={26} /> : <Menu size={26} />}
@@ -48,9 +49,6 @@ function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           {token && !isAuthPage && (
             <>
-              <Link to="/dashboard" className="hover:text-blue-400 transition">
-                Dashboard
-              </Link>
               <div className="relative flex items-center">
                 <button
                   onClick={() => setSearchVisible(!searchVisible)}
@@ -76,6 +74,10 @@ function Navbar() {
                   )}
                 </AnimatePresence>
               </div>
+
+              <Link to="/dashboard" className="hover:text-blue-400 transition">
+                Dashboard
+              </Link>
             </>
           )}
 
@@ -124,20 +126,24 @@ function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden flex flex-col items-start gap-3 mt-3"
+            className="md:hidden flex flex-col items-center gap-4 mt-4 text-center"
           >
             {token && !isAuthPage && (
               <>
-                <Link to="/dashboard" className="hover:text-blue-400 transition">
-                  Dashboard
-                </Link>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={handleSearchChange}
                   placeholder="Search folders & notes..."
-                  className="px-3 py-1 rounded-lg text-black bg-amber-50 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full"
+                  className="px-3 py-1 rounded-lg text-black bg-amber-50 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-xs"
                 />
+                <Link
+                  to="/dashboard"
+                  className="hover:text-blue-400 transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
               </>
             )}
 
@@ -160,17 +166,28 @@ function Navbar() {
 
             {token && !isAuthPage ? (
               <button
-                onClick={handleLogout}
-                className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition w-full text-center"
+                onClick={() => {
+                  handleLogout();
+                  setMenuOpen(false);
+                }}
+                className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition w-full max-w-xs"
               >
                 Logout
               </button>
             ) : (
               <>
-                <Link to="/" className="hover:text-blue-400 transition w-full">
+                <Link
+                  to="/"
+                  className="hover:text-blue-400 transition w-full"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Login
                 </Link>
-                <Link to="/register" className="hover:text-blue-400 transition w-full">
+                <Link
+                  to="/register"
+                  className="hover:text-blue-400 transition w-full"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Register
                 </Link>
               </>
