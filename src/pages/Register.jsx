@@ -19,7 +19,7 @@ function Register() {
     e.preventDefault();
     try {
       await API.post("/auth/register", form);
-      setMessage("Registered successfully! Redirecting to login...");
+      setMessage("Registered successfully! Redirecting to Dashboard...");
       setTimeout(() => navigate("/dashboard"), 1500);
     } catch (err) {
       setMessage("Registration failed. Try again.");
